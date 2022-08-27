@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'app-add-new-task',
@@ -7,36 +8,49 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./add-new-task.page.scss'],
 })
 export class AddNewTaskPage implements OnInit {
-  categories = ['work','personal','home']
+  categories = []
+  categorySelectedCategory
 
-  taskName
-  taskDate
-  taskPriority
-  taskCategory
+  newTaskObj={}
+  itemName
+  itemDueDate
+  itemPriority
+  itemCategory
 
-  taskObject
-  constructor(public modalCtrl:ModalController) { }
+  constructor(public modalCtrl:ModalController, public todoService:TodoService) { }
 
   ngOnInit() {
+    this.categories.push('work')
+    this.categories.push('personal')
   }
 
-  async dismiss(){
-    await this.modalCtrl.dismiss(this.taskObject)
+  async add(){
+    this.newTaskObj = (
+      {
+        itemName:this.itemName,
+        itemDueDate: this.itemDueDate,
+        itemPriority:this.itemPriority,
+        itemCategory: this.itemCategory
+      }
+    )
+
+    let uid = this.itemName + this.itemDueDate //most important task informations that combined are key
+    
+    if(uid){
+      await this.todoService.addTask(uid,this.newTaskObj)
+    }
+    else{
+      console.log("Cannot save empty task!")
+    }
+
+    this.dismiss()
   }
 
   selectedCategory(index){
-    this.taskCategory = this.categories[index]
+    this.categorySelectedCategory = this.categories[index]
   }
 
-  AddTask(){
-    this.taskObject = (
-      {
-        itemName:this.taskName,
-         itemDueDate: this.taskDate,
-          itemPriority:this.taskPriority,
-           itemCategory: this.taskCategory
-      }
-    )
-    this.dismiss()
+  async dismiss(){
+    await this.modalCtrl.dismiss(this.newTaskObj)
   }
 }

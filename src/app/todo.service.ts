@@ -7,15 +7,16 @@ import { AddNewTaskPage } from './add-new-task/add-new-task.page';
 })
 export class TodoService {
 
-  constructor(private storage: Storage) { 
+  constructor(private storage: Storage) {
+    this.init();
+  } 
 
-    addTask(){
-
+    addTask(key, value){
+      this.storage.set(key,value)
     }
 
-    deleteTask(){
-
-
+    deleteTask(key){
+      this.storage.remove(key) 
     }
 
     updateTask(){
@@ -24,7 +25,16 @@ export class TodoService {
 
     getAllTasks(){
 
+      let tasks: any = []
+      this.storage.forEach((key,value,index) => {
+        tasks.push({'key':value, 'value':key})
+
+      });
+      return tasks
     }
 
-  }
+    async init(){
+      await this.storage.create()
+    }
+  
 }
