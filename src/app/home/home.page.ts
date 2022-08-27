@@ -10,38 +10,7 @@ import { AddNewTaskPage } from '../add-new-task/add-new-task.page';
 export class HomePage {
 
 
-  todoList = [
-    {
-      itemName: 'Coding',
-      itemDueDate: '10-13-21',
-      itemPriority: 'high',
-      itemCategory: 'Work'
-    },
-    {
-      itemName: 'Painting',
-      itemDueDate: '10-28-21',
-      itemPriority: 'low',
-      itemCategory: 'Personal'
-    },
-    {
-      itemName: 'Shopping',
-      itemDueDate: '10-30-21',
-      itemPriority: 'middle',
-      itemCategory: 'Personal'
-    },
-    {
-      itemName: 'Design',
-      itemDueDate: '10-20-21',
-      itemPriority: 'high',
-      itemCategory: 'Work'
-    },
-    {
-      itemName: 'Drink with friends',
-      itemDueDate: '10-17-21',
-      itemPriority: 'low',
-      itemCategory: 'Personal'
-    },
-]
+  todoList = []
 
   today : number = Date.now()
   constructor(public modalCtrl:ModalController) {}
@@ -51,8 +20,15 @@ export class HomePage {
       component: AddNewTaskPage
      })
 
+     modal.onDidDismiss().then(newTaskObj => {
+      console.log(newTaskObj.data);
+      this.todoList.push(newTaskObj.data)
+     })
      return await modal.present()
   }
   
+  delete(index){
+    this.todoList.splice(index,1)
+  }
 
 }
