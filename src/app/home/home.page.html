@@ -45,10 +45,10 @@
     </ion-row>
   </ion-card>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="add"> </ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-
 </ion-content>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="addTask()">
+    <ion-icon name="add"> </ion-icon>
+  </ion-fab-button>
+</ion-fab>
