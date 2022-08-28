@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { AddNewTaskPage } from '../add-new-task/add-new-task.page';
 import { UpdateTaskPage } from '../update-task/update-task.page';
 import { TodoService } from '../todo.service';
 import { logging } from 'protractor';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,12 +13,25 @@ import { logging } from 'protractor';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  profile = null;
   todoList = []
 
   today : number = Date.now()
 
-  constructor(public modalCtrl:ModalController, public todoService:TodoService) {
+  constructor(
+    public modalCtrl:ModalController,
+    public todoService:TodoService,
+    private authService:AuthService,
+    private router:Router,
+    private loadingController:LoadingController,
+    private alertController:AlertController
+     ) {
     this.getAllTask()
+  }
+
+  async logout(){
+    await this.authService.logout();
+    this.router.navigateByUrl('/', {replaceUrl:true})
   }
 
   async addNewItem(){

@@ -6,23 +6,29 @@
 
 <ion-content>
 
-  <div class="wrapper">
+  <form [formGroup]="credentials" (ngSubmit)="login()">
+    <div class="wrapper">
 
-    <h1> Sign In</h1>
+      <h1> Sign In</h1>
 
-    <ion-item lines="none">
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="text" placeholder="Email"></ion-input>
-    </ion-item>
+      <ion-item lines="none">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="text" placeholder="Email" formControlName="email"></ion-input>
+        <ion-note slot="error" *ngIf="(email.dirty || email.touched) && email.errors"> Email is invalid!</ion-note>
+      </ion-item>
 
-    <ion-item lines="none">
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="text" placeholder="Password"></ion-input>
-    </ion-item>
+      <ion-item lines="none">
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="text" placeholder="Password" formControlName="password"></ion-input>
+        <ion-note slot="error" *ngIf="(password.dirty || password.touched) && password.errors"> Password needs to be 6 characters long at least!</ion-note>
+      </ion-item>
 
-  <ion-button> Sign in </ion-button>
+    <ion-button type="submit"  [disabled]="!credentials.valid"> Sign in </ion-button>
+    <ion-button type="button" (click)="register()"> Create account </ion-button>
+    
 
-  </div>
+    </div>
+  </form>
 
 </ion-content>
 
