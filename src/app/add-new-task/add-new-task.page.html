@@ -23,13 +23,13 @@
       <ion-icon name="calendar-outline" slot="start"></ion-icon>
       <ion-label>Due date</ion-label>
 
-      <ion-datetime [(ngModel)]="itemDueDate" datetime="datetime" displayFormat="D MMM YYYY H:mm"></ion-datetime>
+      <ion-datetime-button datetime="datetime"></ion-datetime-button>
 
-      <!-- <ion-modal [keepContentsMounted]="true">
+      <ion-modal [keepContentsMounted]="true">
         <ng-template>
-          <ion-datetime id="datetime"></ion-datetime>
+          <ion-datetime id="datetime" [(ngModel)]="itemDueDate" displayFormat="D MMM YYYY H:mm"></ion-datetime>
         </ng-template>
-      </ion-modal> -->
+      </ion-modal>
     </ion-item>
 
     <ion-item>
