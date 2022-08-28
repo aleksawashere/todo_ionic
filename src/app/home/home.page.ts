@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AddNewTaskPage } from '../add-new-task/add-new-task.page';
+import { UpdateTaskPage } from '../update-task/update-task.page';
 import { TodoService } from '../todo.service';
+import { logging } from 'protractor';
 
 @Component({
   selector: 'app-home',
@@ -24,8 +26,6 @@ export class HomePage {
 
      modal.onDidDismiss().then(newTask => {
       this.getAllTask()
-
-
      })
      return await modal.present()
   }
@@ -39,6 +39,19 @@ export class HomePage {
   delete(key){
     this.todoService.deleteTask(key)
     this.getAllTask()
+  }
+
+  async update(selectedTask){
+    const modal = await this.modalCtrl.create({
+      component: UpdateTaskPage,
+      componentProps: {task: selectedTask}
+    })
+    
+    modal.onDidDismiss().then(newTask => {
+      this.getAllTask()
+     })
+    
+    return await modal.present()
   }
 
 }

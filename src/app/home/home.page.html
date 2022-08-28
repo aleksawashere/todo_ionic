@@ -33,9 +33,9 @@
         <p>Share</p>
       </ion-item>
 
-      <ion-item>
+      <ion-item button (click)="update(item)">
         <ion-icon name="checkmark-outline"></ion-icon>
-        <p>Complete</p>
+        <p>Update</p>
       </ion-item>
 
       <ion-item button (click)="delete(item.key)">

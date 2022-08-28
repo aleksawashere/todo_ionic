@@ -30,9 +30,12 @@ export class AddNewTaskPage implements OnInit {
         itemName:this.itemName,
         itemDueDate: this.itemDueDate,
         itemPriority:this.itemPriority,
-        itemCategory: this.itemCategory
+        itemCategory: this.categorySelectedCategory
       }
     )
+
+    console.log(this.newTaskObj);
+    
 
     let uid = this.itemName + this.itemDueDate //most important task informations that combined are key
     
