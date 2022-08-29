@@ -11,7 +11,9 @@ export class AuthService {
 
   async register({email, password}){
     try {
-      createUserWithEmailAndPassword(this.auth, email, password);
+      
+      await createUserWithEmailAndPassword(this.auth, email, password);
+      
       return user;
     } catch (e) {
       return null;
@@ -21,7 +23,7 @@ export class AuthService {
 
   async login({email, password}){
     try {
-      signInWithEmailAndPassword(this.auth, email, password);
+      await signInWithEmailAndPassword(this.auth, email, password);
       return user;
     } catch (e) {
       return null;
